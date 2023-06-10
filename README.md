@@ -42,7 +42,7 @@ Los personajes favoritos deben seguir apareciendo a la izquierda aunque la usuar
 ### 6. BONUS: Borrar favoritos
 Al hacer clic sobre el icono de una 'x' al lado de cada favorito, hay que borrar el favorito clicado de la lista y del localStorage.
 
-### 9. BONUS: Afinar la maquetación
+### 7. BONUS: Afinar la maquetación
 Una vez terminada la parte de la interactividad de la página, podemos centrarnos en la parte de maquetación donde tenéis libertad para decidir los estilo. 
 
 **¡Al turrón!**
