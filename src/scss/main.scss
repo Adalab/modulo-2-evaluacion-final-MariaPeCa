@@ -1,0 +1,27 @@
+@import 'core/variables';
+@import 'core/reset';
+@import 'layout/header';
+@import 'layout/footer';
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.section1 {
+    display: flex;
+}
+
+.section2__title {
+align-items: center;
+color: blue;
+}
+
+.list {
+    list-style: none;
+}
+.footer {
+    background-color: blue;
+    color: white;
+}
