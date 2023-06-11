@@ -12,29 +12,30 @@
 //variables
 
 const ulElement = document.querySelector('.js_card_list');
-const url = `https://api.disneyapi.dev/character/6`;
+const url = `https://api.disneyapi.dev/character?pageSize=50`;
 
 //fetch
 fetch(url)
     .then((response) => response.json())
     .then((data) => {
         console.log(data);
-        ulElement.innerHTML = renderOneCharacter();
+        ulElement.innerHTML = renderOneCharacter(data.data[0]);
+        
     });
 
 
 
 //funciones
-function renderOneCharacter() {
+function renderOneCharacter(character) {
     let html = `
-    <li id="6" class="card">
-    <article class="character__box">
+        <li id="${character._id}" class="card">
+        <article class="character__box">
         <img class="character__img js_img"
-            src="https://static.wikia.nocookie.net/disney/images/6/61/Olu_main.png"
-            alt="Disney Characters:'Olu Mel" />
-        <p class="character__name js_name">"'Olu Mel"</p>
-    </article>
-</li>`;
+            src="${character.imageUrl}"
+            alt="Disney Characters:${character.name}" />
+        <p class="character__name js_name">"${character.name}"</p>
+        </article>
+        </li>`;
            
     return html;
 }
