@@ -11,6 +11,7 @@
 //Comenzaremos copiandonos los datos del API (el array de objetos) a una variable de nuestro código JavaScript y generando el HTML para un único personaje.
 
 const ulElement = document.querySelector('.js_card_list');
+const ulFavorites = document.querySelector('.js_fav_list');
 const url = `https://api.disneyapi.dev/character?pageSize=50`;
 
 
@@ -67,18 +68,38 @@ function handelClick (event){
     const id = parseInt(event.currentTarget.id); //parseInt para convertirlo en número
 
 
-//method find
+//method find - hacer una búsqueda dentro del array de favoritos. 
 const selectedCharacter = listCharactersApi.find((item) => item._id === id);
-//
 
-listCharactersFav.push(selectedCharacter);
-console.log(listCharactersFav);
+//method findIndex devuelve la posición y si no se encuentra devuelve -1
+const indexCharacter = listCharactersFav.findIndex((item) => item._id === id);
+
+//hacer un condicional que haga que si la tarjeta de personajes seleccionada como fav no esté en el listCharactersFav haga push y la añada (antes hay que buscar en el array de favoritos)
+if (indexCharacter === -1) {
+    listCharactersFav.push(selectedCharacter);
+    
+} else {
+    listCharactersFav.splice(indexCharacter, 1);
+   
+}
+
+renderFavList();
 }
 
 //Una vez obtengo el id me interesa guardar todo ese objeto que obtengo de la tarjeta de personajes en un array nuevo. El array de todos mis favoritos. Primero crear el array
 
 
+//crear una función para pintar la lista de favoritos en HTML. Esta función la tengo q llamar dentro de la función handelClick una vez que haya añadido o eliminado del array
+function renderFavList(){
+    ulFavorites.innerHTML = ""; //borra lo que ya tiene el array cada vez q se renderiza
+    for (const fav of listCharactersFav){
+        
+        ulFavorites.innerHTML += renderOneCharacter(fav);//uso la misma render pero le cambio el parámetro
+    }
+    
+}
 
+//añadir una clase cuando aparezca en favoritos y eliminarla al quitarlo de favoritos
+//selectedCharacter.classList.add ('select');
 
-
-
+//guardar en el localStorage las 
