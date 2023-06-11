@@ -17,7 +17,10 @@ const url = `https://api.disneyapi.dev/character?pageSize=50`;
 
 
 let listCharactersApi = []; //la relleno cuando me lleguen los datos del servidor
-let listCharactersFav = [];//crear el array de favoritos, aquí debo guardar el eelmento clicado
+let listCharactersFav = [];//crear el array de favoritos, aquí debo guardar el elmento clicado
+
+
+
 
 //fetch peticion al servidor
 fetch(url)
@@ -25,7 +28,9 @@ fetch(url)
     .then((listData) => {
         listCharactersApi = listData.data //elijo la propiedad del array que necesito y lo guardo en array personal
         renderAllCharacters(listCharactersApi);  //una vez tengo los datos los renderizo(hago q se vean)
-    
+    //local storage dentro del then
+        
+
     });
 
 //FUNCIONES
@@ -82,8 +87,8 @@ if (indexCharacter === -1) {
     listCharactersFav.splice(indexCharacter, 1);
    
 }
-
-renderFavList();
+    localStorage.setItem("data", JSON.stringify(listCharactersFav));//ESTO VA AQUÍ pero no sé si es de listCharactersFav
+    renderFavList();
 }
 
 //Una vez obtengo el id me interesa guardar todo ese objeto que obtengo de la tarjeta de personajes en un array nuevo. El array de todos mis favoritos. Primero crear el array
