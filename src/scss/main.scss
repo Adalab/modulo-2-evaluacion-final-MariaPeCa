@@ -8,10 +8,13 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+.main__box{
+    display:flex;
+}
 .section1 {
     display: flex;
 }
+
 .section__fav--title {
     color: blue;
 }
@@ -26,5 +29,22 @@ color: blue;
 }
 .footer {
     background-color: blue;
+    color: white;
+}
+.character__box {
+    border: 1px solid grey;
+    text-align: center;
+    padding: 10px 10px;
+   
+}
+.character__img{
+    width: 210px;
+    height: 295px;
+}
+.character__name {
+    color:cadetblue
+}
+.select{
+    background-color: cadetblue;
     color: white;
 }
