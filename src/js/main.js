@@ -10,22 +10,33 @@
 
 
 //variables
+//Comenzaremos copiandonos los datos del API (el array de objetos) a una variable de nuestro código JavaScript y generando el HTML para un único personaje.
 
 const ulElement = document.querySelector('.js_card_list');
 const url = `https://api.disneyapi.dev/character?pageSize=50`;
 
+
+
+let listCharachtersApi = []; //la relleno cuando me lleguen los datos del servidor
+
 //fetch
 fetch(url)
     .then((response) => response.json())
-    .then((data) => {
-        console.log(data);
-        ulElement.innerHTML = renderOneCharacter(data.data[0]);
+    .then((listData) => {
+        console.log(listData);
+        listCharachtersApi = listData.data
+        renderAllCharacters(listCharachtersApi);
+        //ulElement.innerHTML = renderOneCharacter(data.data[0]);
         
     });
 
-
-
 //funciones
+function renderAllCharacters(listData) {
+    for (const character of listData) {
+        ulElement.innerHTML += renderOneCharacter(character);
+    }
+}
+
 function renderOneCharacter(character) {
     let html = `
         <li id="${character._id}" class="card">
@@ -39,5 +50,9 @@ function renderOneCharacter(character) {
            
     return html;
 }
+//Después, añadiremos un bucle para que se genere el HTML de cada personaje que hay en el array.
+
+
+
 
 //eventos
