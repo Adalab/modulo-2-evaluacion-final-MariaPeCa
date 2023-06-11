@@ -12,8 +12,11 @@
 .section1 {
     display: flex;
 }
+.section__fav--title {
+    color: blue;
+}
 
-.section2__title {
+.section__char--title {
 align-items: center;
 color: blue;
 }
