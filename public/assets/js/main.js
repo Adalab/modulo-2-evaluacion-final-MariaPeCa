@@ -34,7 +34,7 @@ fetch(url)
     });
 
 //FUNCIONES
-//creo una función para renderizar los datos que tengo guardados en mi array. esta función recorre el array y por cada elemento del array guarda en el HTML lo q nos retorna la funcion renderOneCharacter (creada previamente, que es un solo una tarjeta personaje)
+//creo una función para renderizar los datos que tengo guardados en mi array. esta función recorre el array y por cada elemento del array guarda en el HTML lo q nos retorna la funcion renderOneCharacter (creada previamente, que es solo una tarjeta personaje)
 function renderAllCharacters(listData) {
     for (const character of listData) {
         ulElement.innerHTML += renderOneCharacter(character);
@@ -55,18 +55,41 @@ function renderOneCharacter(character) {
     if (img === undefined || img === "") {
         img = "https://via.placeholder.com/210x295/ffffff/555555/?text=Disney";
     }
+    
     let html = `
         <li id="${character._id}" class="card js_list">
-        <article class="character__box">
-        <img class="character__img js_img"
+        <article class="character__box">   
+            <img class="character__img js_img"
             src="${img}"
             alt="Disney Characters:${character.name}" />
-        <p class="character__name js_name">"${character.name}"</p>
+            <p class="character__name js_name">"${character.name}"</p>
         </article>
         </li>`;
            
     return html;
 }
+
+/*
+function renderOneFav(character) {
+    let img = character.imageUrl;
+    if (img === undefined || img === "") {
+        img = "https://via.placeholder.com/210x295/ffffff/555555/?text=Disney";
+    }
+    let html = `
+        <li id="${character._id}" class="card js_list select">
+        <article class="character__box">
+            <img class="character__img js_img"
+            src="${img}"
+            alt="Disney Characters:${character.name}" />
+            <p class="character__name js_name select">"${character.name}"</p>
+        </article>
+        </li>`;
+           
+    return html;
+}
+*/
+
+
 //EVENTOS
 //escuchar un evento click sobre cada uno de las tarjetas de personajes para obtener la info del atributo gancho y saber cuál es el elemento clicado. Se lo he puesto al li completo por eso uso currentTarget.
 function handelClick (event){
@@ -82,31 +105,33 @@ const indexCharacter = listCharactersFav.findIndex((item) => item._id === id);
 //hacer un condicional que haga que si la tarjeta de personajes seleccionada como fav no esté en el listCharactersFav haga push y la añada (antes hay que buscar en el array de favoritos)
 if (indexCharacter === -1) {
     listCharactersFav.push(selectedCharacter);
-    
+    //event.currentTarget.classList.add("select");
 } else {
     listCharactersFav.splice(indexCharacter, 1);
+    //event.currentTarget.classList.remove("select");
    
 }
-    localStorage.setItem("data", JSON.stringify(listCharactersFav));//ESTO VA AQUÍ pero no sé si es de listCharactersFav
+    
+    //localStorage.setItem("data", JSON.stringify(listCharactersFav));//ESTO VA AQUÍ pero no sé si es de listCharactersFav
     renderFavList();
+
 }
 
 //Una vez obtengo el id me interesa guardar todo ese objeto que obtengo de la tarjeta de personajes en un array nuevo. El array de todos mis favoritos. Primero crear el array
 
 
 //crear una función para pintar la lista de favoritos en HTML. Esta función la tengo q llamar dentro de la función handelClick una vez que haya añadido o eliminado del array
-function renderFavList(){
+function renderFavList(character){
     ulFavorites.innerHTML = ""; //borra lo que ya tiene el array cada vez q se renderiza
     for (const fav of listCharactersFav){
         
         ulFavorites.innerHTML += renderOneCharacter(fav);//uso la misma render pero le cambio el parámetro
     }
-    
+    console.log(listCharactersFav);
 }
 
 //añadir una clase cuando aparezca en favoritos y eliminarla al quitarlo de favoritos
 //selectedCharacter.classList.add ('select');
 
-//guardar en el localStorage las 
 
 //# sourceMappingURL=main.js.map
