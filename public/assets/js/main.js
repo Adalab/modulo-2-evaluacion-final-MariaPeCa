@@ -144,7 +144,7 @@ btnSearch.addEventListener("click", handelSearch) //escucho el botón al hacer c
 
 
 //crear un evento en la X que al clicar elimine los favoritos de la lista del localStorage
-/*
+
 function addEventClear(){
     
     const clearX = document.querySelectorAll('.js_x');
@@ -160,11 +160,11 @@ function addEventClear(){
 const handelX = (event) => {
     event.preventDefault();
 
-    
+const indexCharacter = listCharactersFav.findIndex((item) => item._id === id);
     charactersLS = listCharactersFav.splice(indexCharacter, 1);
     console.log('hecho clic');
 }
-*/
+
 //clearX.addEventListener("click", handelX)
 
 //# sourceMappingURL=main.js.map
