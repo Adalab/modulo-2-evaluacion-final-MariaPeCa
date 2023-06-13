@@ -13,7 +13,8 @@
 const ulElement = document.querySelector('.js_card_list');
 const ulFavorites = document.querySelector('.js_fav_list');
 const url = `https://api.disneyapi.dev/character?pageSize=50`;
-
+const inputSearch = document.querySelector('.js_inputSearch');
+const btnSearch = document.querySelector('.js_btnSearch');
 
 
 let listCharactersApi = []; //la relleno cuando me lleguen los datos del servidor
@@ -23,9 +24,9 @@ const charactersLS = JSON.parse(localStorage.getItem('favCharacters'));
 
 init();
 function init (){
-    if(charactersLS) {
-       listCharactersFav = charactersLS;
-       renderFavList();
+    if(charactersLS) { //si charactersLS es verdadero entonces lo que hay dentro lo guardará en listCharactersFav
+       listCharactersFav = charactersLS; // una vez que ya tengo lo q hay en LS llamo a renderFavList()
+       renderFavList();//ahora muestro lo que hay. 
     }
 
 //fetch peticion al servidor
@@ -41,6 +42,7 @@ fetch(url)
 //FUNCIONES
 //creo una función para renderizar los datos que tengo guardados en mi array. esta función recorre el array y por cada elemento del array guarda en el HTML lo q nos retorna la funcion renderOneCharacter (creada previamente, que es solo una tarjeta personaje)
 function renderAllCharacters(listData) {
+    ulElement.innerHTML = ""; //vacío la lista oara que al llamar a renderAllCharacters en el buscador no me añada y solo me muestre el que busco
     for (const character of listData) {
         ulElement.innerHTML += renderOneCharacter(character);
     }
@@ -136,5 +138,13 @@ function renderFavList(character){
     
 }
 
-//añadir una clase cuando aparezca en favoritos y eliminarla al quitarlo de favoritos
-//('select');
+const handelSearch = (event) => {
+    event.preventDefault();
+    const inputValue = inputSearch.value;
+    const filterList = listCharactersApi.filter((item) => 
+    item.name.toLowerCase().includes(inputValue.toLowerCase())
+    );
+    console.log(filterList);
+    renderAllCharacters(filterList);
+}
+btnSearch.addEventListener("click", handelSearch)
