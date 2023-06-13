@@ -19,8 +19,14 @@ const url = `https://api.disneyapi.dev/character?pageSize=50`;
 let listCharactersApi = []; //la relleno cuando me lleguen los datos del servidor
 let listCharactersFav = [];//crear el array de favoritos, aquí debo guardar el elmento clicado
 
+const charactersLS = JSON.parse(localStorage.getItem('favCharacters'));
 
-
+init();
+function init (){
+    if(charactersLS) {
+       listCharactersFav = charactersLS;
+       renderFavList();
+    }
 
 //fetch peticion al servidor
 fetch(url)
@@ -30,9 +36,8 @@ fetch(url)
         renderAllCharacters(listCharactersApi);  //una vez tengo los datos los renderizo(hago q se vean)
     //local storage dentro del then
         
-
     });
-
+}
 //FUNCIONES
 //creo una función para renderizar los datos que tengo guardados en mi array. esta función recorre el array y por cada elemento del array guarda en el HTML lo q nos retorna la funcion renderOneCharacter (creada previamente, que es solo una tarjeta personaje)
 function renderAllCharacters(listData) {
@@ -69,7 +74,7 @@ function renderOneCharacter(character) {
     return html;
 }
 
-/*
+
 function renderOneFav(character) {
     let img = character.imageUrl;
     if (img === undefined || img === "") {
@@ -87,7 +92,6 @@ function renderOneFav(character) {
            
     return html;
 }
-*/
 
 
 //EVENTOS
@@ -112,8 +116,10 @@ if (indexCharacter === -1) {
    
 }
     
-    //localStorage.setItem("data", JSON.stringify(listCharactersFav));//ESTO VA AQUÍ pero no sé si es de listCharactersFav
-    renderFavList();
+    //Para guardar el local Storage de los favoritos ES AQUÍ 
+   
+    localStorage.setItem("favCharacters", JSON.stringify(listCharactersFav)); 
+    renderFavList(listCharactersFav);
 
 }
 
@@ -125,11 +131,10 @@ function renderFavList(character){
     ulFavorites.innerHTML = ""; //borra lo que ya tiene el array cada vez q se renderiza
     for (const fav of listCharactersFav){
         
-        ulFavorites.innerHTML += renderOneCharacter(fav);//uso la misma render pero le cambio el parámetro
+        ulFavorites.innerHTML += renderOneFav(fav);//uso la misma render pero le cambio el parámetro
     }
-    console.log(listCharactersFav);
+    
 }
 
 //añadir una clase cuando aparezca en favoritos y eliminarla al quitarlo de favoritos
-//selectedCharacter.classList.add ('select');
-
+//('select');
