@@ -15,7 +15,7 @@ const ulFavorites = document.querySelector('.js_fav_list');
 const url = `https://api.disneyapi.dev/character?pageSize=50`;
 const inputSearch = document.querySelector('.js_inputSearch');
 const btnSearch = document.querySelector('.js_btnSearch');
-
+//const clearX = document.querySelectorAll('.js_x');
 
 let listCharactersApi = []; //la relleno cuando me lleguen los datos del servidor
 let listCharactersFav = [];//crear el array de favoritos, aquí debo guardar el elmento clicado
@@ -88,6 +88,7 @@ function renderOneFav(character) {
             <img class="character__img js_img"
             src="${img}"
             alt="Disney Characters:${character.name}" />
+            <i class="fa-solid fa-square-xmark js_x"></i>
             <p class="character__name js_name select">"${character.name}"</p>
         </article>
         </li>`;
@@ -97,17 +98,14 @@ function renderOneFav(character) {
 
 
 //EVENTOS
+
 //escuchar un evento click sobre cada uno de las tarjetas de personajes para obtener la info del atributo gancho y saber cuál es el elemento clicado. Se lo he puesto al li completo por eso uso currentTarget.
 function handelClick (event){
     const id = parseInt(event.currentTarget.id); //parseInt para convertirlo en número
-
-
 //method find - hacer una búsqueda dentro del array de favoritos. 
 const selectedCharacter = listCharactersApi.find((item) => item._id === id);
-
 //method findIndex devuelve la posición y si no se encuentra devuelve -1
 const indexCharacter = listCharactersFav.findIndex((item) => item._id === id);
-
 //hacer un condicional que haga que si la tarjeta de personajes seleccionada como fav no esté en el listCharactersFav haga push y la añada (antes hay que buscar en el array de favoritos)
 if (indexCharacter === -1) {
     listCharactersFav.push(selectedCharacter);
@@ -115,14 +113,9 @@ if (indexCharacter === -1) {
 } else {
     listCharactersFav.splice(indexCharacter, 1);
     //event.currentTarget.classList.remove("select");
-   
 }
-    
-    //Para guardar el local Storage de los favoritos ES AQUÍ 
-   
-    localStorage.setItem("favCharacters", JSON.stringify(listCharactersFav)); 
+    localStorage.setItem("favCharacters", JSON.stringify(listCharactersFav)); //Para guardar el local Storage de los favoritos ES AQUÍ 
     renderFavList(listCharactersFav);
-
 }
 
 //Una vez obtengo el id me interesa guardar todo ese objeto que obtengo de la tarjeta de personajes en un array nuevo. El array de todos mis favoritos. Primero crear el array
@@ -138,13 +131,38 @@ function renderFavList(character){
     
 }
 
+//crear un evento para el btn de búsqueda que filtre según lo que escribimo en el input
 const handelSearch = (event) => {
     event.preventDefault();
     const inputValue = inputSearch.value;
     const filterList = listCharactersApi.filter((item) => 
     item.name.toLowerCase().includes(inputValue.toLowerCase())
     );
-    console.log(filterList);
     renderAllCharacters(filterList);
 }
-btnSearch.addEventListener("click", handelSearch)
+btnSearch.addEventListener("click", handelSearch) //escucho el botón al hacer click
+
+
+//crear un evento en la X que al clicar elimine los favoritos de la lista del localStorage
+/*
+function addEventClear(){
+    
+    const clearX = document.querySelectorAll('.js_x');
+        for (const elX of clearX) {
+            clearX.addEventListener("click", handelX);//Elemento sobre el que escucho el evento
+        }
+        
+        console.log(clearX);
+    }
+
+//función manejadora del evento de borrar los favoritos
+
+const handelX = (event) => {
+    event.preventDefault();
+
+    
+    charactersLS = listCharactersFav.splice(indexCharacter, 1);
+    console.log('hecho clic');
+}
+*/
+//clearX.addEventListener("click", handelX)
