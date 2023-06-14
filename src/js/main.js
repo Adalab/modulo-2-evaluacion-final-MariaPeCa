@@ -16,6 +16,7 @@ const url = `https://api.disneyapi.dev/character?pageSize=50`;
 const inputSearch = document.querySelector('.js_inputSearch');
 const btnSearch = document.querySelector('.js_btnSearch');
 //const clearX = document.querySelectorAll('.js_x');
+const btnLog = document.querySelector('.js_btnLog');
 
 let listCharactersApi = []; //la relleno cuando me lleguen los datos del servidor
 let listCharactersFav = [];//crear el array de favoritos, aquí debo guardar el elmento clicado
@@ -70,6 +71,7 @@ function renderOneCharacter(character) {
             src="${img}"
             alt="Disney Characters:${character.name}" />
             <p class="character__name js_name">"${character.name}"</p>
+            <a href="${character.sourceUrl}" target="_blank">url</a>
         </article>
         </li>`;
            
@@ -166,3 +168,13 @@ const indexCharacter = listCharactersFav.findIndex((item) => item._id === id);
 }
 
 //clearX.addEventListener("click", handelX)
+const handleLog = (event)=> {
+    event.preventDefault();
+
+    for (const iteFav of listCharactersFav) {
+        console.log(iteFav.name)
+    }
+
+}
+
+ btnLog.addEventListener("click", handleLog)
