@@ -72,6 +72,7 @@ function renderOneCharacter(character) {
             alt="Disney Characters:${character.name}" />
             <p class="character__name js_name">"${character.name}"</p>
             <a href="${character.sourceUrl}" target="_blank">url</a>
+            <p class="character__date js_date">"${character.createdAt}"</p>
         </article>
         </li>`;
            
@@ -101,7 +102,7 @@ function renderOneFav(character) {
 
 //EVENTOS
 
-//escuchar un evento click sobre cada uno de las tarjetas de personajes para obtener la info del atributo gancho y saber cuál es el elemento clicado. Se lo he puesto al li completo por eso uso currentTarget.
+//escuchar un evento click sobre cada uno de las tarjetas de personajes para obtener la info del atributo gancho (id) y saber cuál es el elemento clicado. Se lo he puesto al li completo por eso uso currentTarget.
 function handelClick (event){
     const id = parseInt(event.currentTarget.id); //parseInt para convertirlo en número
 //method find - hacer una búsqueda dentro del array de favoritos. 
@@ -124,14 +125,28 @@ if (indexCharacter === -1) {
 
 
 //crear una función para pintar la lista de favoritos en HTML. Esta función la tengo q llamar dentro de la función handelClick una vez que haya añadido o eliminado del array
-function renderFavList(character){
+function renderFavList(){
     ulFavorites.innerHTML = ""; //borra lo que ya tiene el array cada vez q se renderiza
     for (const fav of listCharactersFav){
         
         ulFavorites.innerHTML += renderOneFav(fav);//uso la misma render pero le cambio el parámetro
     }
     
+    /*const clearX = document.querySelectorAll('.js_x');
+        for (const elX of clearX) {
+            elX.addEventListener("click", handleX);//Elemento sobre el que escucho el evento
+        }
+    */
 }
+/*
+const handleX = (event) => {
+    const id = parseInt(event.currentTarget.id);
+    const indexCharacter = listCharactersFav.findIndex((item) => item._id === id);
+    listCharactersFav.splice(indexCharacter, 1);
+    renderFavList();
+    renderAllCharacters(listData);
+}
+*/
 
 //crear un evento para el btn de búsqueda que filtre según lo que escribimo en el input
 const handelSearch = (event) => {
@@ -147,25 +162,31 @@ btnSearch.addEventListener("click", handelSearch) //escucho el botón al hacer c
 
 //crear un evento en la X que al clicar elimine los favoritos de la lista del localStorage
 
-function addEventClear(){
+
+/*function addEventClear(){
     
     const clearX = document.querySelectorAll('.js_x');
         for (const elX of clearX) {
-            clearX.addEventListener("click", handelX);//Elemento sobre el que escucho el evento
+            clearX.addEventListener("click", handleX);//Elemento sobre el que escucho el evento
         }
         
-        console.log(clearX);
     }
-
+*/
 //función manejadora del evento de borrar los favoritos
 
-const handelX = (event) => {
+/*
+const handleX = (event) => {
     event.preventDefault();
-
-const indexCharacter = listCharactersFav.findIndex((item) => item._id === id);
-    charactersLS = listCharactersFav.splice(indexCharacter, 1);
+    const id = parseInt(event.currentTarget.id); 
+    const indexCharacter = listCharactersFav.findIndex((item) => item._id === id);
+    listCharactersFav.splice(indexCharacter, 1);
+    renderFavList();
+    renderAllCharacters(listData);
     console.log('hecho clic');
 }
+*/
+
+
 
 //clearX.addEventListener("click", handelX)
 const handleLog = (event)=> {
@@ -174,7 +195,13 @@ const handleLog = (event)=> {
     for (const iteFav of listCharactersFav) {
         console.log(iteFav.name)
     }
-
+    for (let i = 0; i < listCharactersFav.length; i ++) {
+        /*console.log(listCharactersFav[i].name); */
+        /*console.log(listCharactersFav.length);*/
+    }
+    console.log(listCharactersFav.length);
+    
+   
 }
-
- btnLog.addEventListener("click", handleLog)
+btnLog.addEventListener("click", handleLog)
+ 
