@@ -13,6 +13,7 @@
 const ulElement = document.querySelector('.js_card_list');
 const ulFavorites = document.querySelector('.js_fav_list');
 const url = `https://api.disneyapi.dev/character?pageSize=50`;
+
 const inputSearch = document.querySelector('.js_inputSearch');
 const btnSearch = document.querySelector('.js_btnSearch');
 //const clearX = document.querySelectorAll('.js_x');
@@ -117,9 +118,7 @@ if (indexCharacter === -1) {
     localStorage.setItem("favCharacters", JSON.stringify(listCharactersFav)); //Para guardar el local Storage de los favoritos ES AQUÍ 
     renderFavList(listCharactersFav);
 }
-
 //Una vez obtengo el id me interesa guardar todo ese objeto que obtengo de la tarjeta de personajes en un array nuevo. El array de todos mis favoritos. Primero crear el array
-
 
 //crear una función para pintar la lista de favoritos en HTML. Esta función la tengo q llamar dentro de la función handelClick una vez que haya añadido o eliminado del array
 function renderFavList(character){
