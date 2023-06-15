@@ -13,7 +13,7 @@
 const ulElement = document.querySelector('.js_card_list');
 const ulFavorites = document.querySelector('.js_fav_list');
 const url = `https://api.disneyapi.dev/character?pageSize=50`;
-
+const btnLog = document.querySelector('.js_btnLog');
 const inputSearch = document.querySelector('.js_inputSearch');
 const btnSearch = document.querySelector('.js_btnSearch');
 //const clearX = document.querySelectorAll('.js_x');
@@ -70,7 +70,8 @@ function renderOneCharacter(character) {
             <img class="character__img js_img"
             src="${img}"
             alt="Disney Characters:${character.name}" />
-            <p class="character__name js_name">"${character.name}"</p>
+            <p class="character__name js_name">${character.name}</p>
+            <p class="character__name js_updatedAt">${character.updatedAt}</p>
         </article>
         </li>`;
            
@@ -141,7 +142,17 @@ const handelSearch = (event) => {
 }
 btnSearch.addEventListener("click", handelSearch) //escucho el botón al hacer click
 
+const handleLog = (event) => {
+    event.preventDefault();
+    for ( const iteFav of listCharactersFav) {
+        console.log(iteFav.name)
+    }
+    console.log(listCharactersFav.length)
+}
 
+
+
+btnLog.addEventListener("click", handleLog)
 //crear un evento en la X que al clicar elimine los favoritos de la lista del localStorage
 
 function addEventClear(){
